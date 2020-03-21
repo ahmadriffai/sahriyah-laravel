@@ -18,15 +18,6 @@ class KamarController extends Controller
         return view('kamar.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,16 +38,7 @@ class KamarController extends Controller
         return redirect('/kamar')->with('status','Data Kamar Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Santri  $santri
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kamar $kamar)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

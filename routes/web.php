@@ -37,3 +37,11 @@ Route::post('/kamar', 'KamarController@store');
 Route::delete('/kamar/{kamar}', 'KamarController@destroy');
 Route::get('/kamar/{kamar}/edit', 'KamarController@edit');
 Route::put('/kamar/{kamar}', 'KamarController@update');
+
+
+// Tagihan
+Route::get('/tagihan', 'TagihanController@index');
+Route::post('/tagihan', 'TagihanController@store');
+Route::delete('/tagihan/{tagihan}', 'TagihanController@destroy');
+Route::get('/tagihan/{tagihan}/edit', 'TagihanController@edit');
+Route::put('/tagihan/{tagihan}', 'TagihanController@update');

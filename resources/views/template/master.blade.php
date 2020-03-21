@@ -70,6 +70,12 @@
           <i class="fas fa-fw fa-home"></i>
           <span>Data Kamar</span></a>
       </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/tagihan">
+          <i class="fas fa-fw fa-home"></i>
+          <span>Data Tagihan</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

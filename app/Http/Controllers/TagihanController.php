@@ -14,7 +14,9 @@ class TagihanController extends Controller
      */
     public function index()
     {
-        //
+        $data['tagihan'] = Tagihan::all();
+
+        return view('tagihan.index', $data);
     }
 
     /**
@@ -35,9 +37,16 @@ class TagihanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'tagihan' => 'required',
+            'biaya' => 'required'
+        ]);
 
+        Tagihan::create($request->all());
+
+        return redirect('/tagihan')->with('status','Data Berhasil Ditambahkan');
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -48,7 +57,7 @@ class TagihanController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -57,9 +66,9 @@ class TagihanController extends Controller
      */
     public function edit(Tagihan $tagihan)
     {
-        //
+        return view('tagihan.edit', compact('tagihan'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -69,9 +78,16 @@ class TagihanController extends Controller
      */
     public function update(Request $request, Tagihan $tagihan)
     {
-        //
-    }
+        Tagihan::where('id_tagihan', $tagihan->id_tagihan)->update([
+            'tagihan' => $request->tagihan,
+            'biaya' => $request->biaya
+            
+            ]);
+            
+        return redirect('/tagihan')->with('status','Data Berhasil Diubah');
 
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -80,6 +96,9 @@ class TagihanController extends Controller
      */
     public function destroy(Tagihan $tagihan)
     {
-        //
+        Tagihan::destroy($tagihan->id_tagihan);
+        
+        return redirect('/tagihan')->with('status','Data Berhasil Dihapus');
+
     }
 }
