@@ -30,3 +30,10 @@ Route::post('/kelas', 'KelasController@store');
 Route::delete('kelas/{santri}', 'KelasController@destroy');
 Route::get('/kelas/{kelas}/edit', 'KelasController@edit');
 Route::put('/kelas/{kelas}', 'KelasController@update');
+
+// Kamar
+Route::get('/kamar', 'KamarController@index');
+Route::post('/kamar', 'KamarController@store');
+Route::delete('/kamar/{kamar}', 'KamarController@destroy');
+Route::get('/kamar/{kamar}/edit', 'KamarController@edit');
+Route::put('/kamar/{kamar}', 'KamarController@update');
