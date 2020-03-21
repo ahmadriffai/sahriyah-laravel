@@ -195,8 +195,9 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">@yield('titlepage')</h1>
-
+          <div class="row">
           @yield('content')
+          </div>
 
         </div>
         <!-- /.container-fluid -->

@@ -14,18 +14,11 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
+        $data['kelas'] = Kelas::all();
+        return view('kelas.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+ 
 
     /**
      * Store a newly created resource in storage.
@@ -35,20 +28,17 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kelas' => 'required'
+        ]);
+
+        kelas::create($request->all());
+
+        return redirect('/kelas')->with('status','Data kelas Berhasil Ditambahkan');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kelas $kelas)
-    {
-        //
-    }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -57,7 +47,7 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        //
+        return view('kelas.edit', compact('kelas'));
     }
 
     /**
@@ -69,7 +59,13 @@ class KelasController extends Controller
      */
     public function update(Request $request, Kelas $kelas)
     {
-        //
+        Kelas::where('id_kelas', $kelas->id_kelas)->update([
+            'nama_kelas' => $request->nama_kelas
+        ]);
+
+        return redirect('/kelas')->with('status','Data kelas Berhasil Diubah');
+
+
     }
 
     /**
@@ -80,6 +76,8 @@ class KelasController extends Controller
      */
     public function destroy(Kelas $kelas)
     {
-        //
+        Kelas::destroy($kelas->id_kelas);
+
+        return redirect('/kelas')->with('status','Data kelas Berhasil Dihapus');
     }
 }

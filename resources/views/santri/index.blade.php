@@ -9,6 +9,11 @@
 @section('content')
            <!-- Circle Buttons -->
            <div class="col-md-12">
+             @if(session('status'))
+               <div class="alert alert-success">
+                 {{ session('status') }}
+               </div>
+             @endif
            <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Data Santri</h6>
@@ -17,11 +22,6 @@
 
 
                 <div class="card-body">
-                  @if(session('status'))
-                    <div class="alert alert-success">
-                      {{ session('status') }}
-                    </div>
-                  @endif
                  
                     <!-- link create -->
                     <a href="/santri/create" class="btn btn-primary btn-icon-split">

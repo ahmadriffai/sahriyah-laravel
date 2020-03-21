@@ -23,3 +23,10 @@ use Illuminate\Support\Facades\Route;
 // Route::put('/santri/{santri}', 'SantriController@update');
 
 Route::resource('santri', 'SantriController');
+
+// Kelas
+Route::get('/kelas', 'KelasController@index');
+Route::post('/kelas', 'KelasController@store');
+Route::delete('kelas/{santri}', 'KelasController@destroy');
+Route::get('/kelas/{kelas}/edit', 'KelasController@edit');
+Route::put('/kelas/{kelas}', 'KelasController@update');
