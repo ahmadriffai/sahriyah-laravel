@@ -39,7 +39,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -73,13 +73,29 @@
       
       <li class="nav-item">
         <a class="nav-link" href="/tagihan">
-          <i class="fas fa-fw fa-home"></i>
+          <i class="fas fa-fw fa-dollar-sign"></i>
           <span>Data Tagihan</span></a>
       </li>
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+ 
 
+      <!-- Data Master -->
+      <div class="sidebar-heading">
+        Pembayaran
+      </div>
+
+      <!--  -->
+      <li class="nav-item">
+        <a class="nav-link" href="/santri">
+          <i class="fas fa-fw fa-flag"></i>
+          <span>Pembayaran Tagihan</span></a>
+      </li>
+
+      <hr class="sidebar-divider d-none d-md-block">
+      
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

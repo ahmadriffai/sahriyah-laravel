@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Dasboard
+Route::get('/dashboard', function(){
+    return view('dashboard');
+});
+
 
 // Santri
 // Route::get('/santri', 'SantriController@index');

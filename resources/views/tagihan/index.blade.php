@@ -39,7 +39,7 @@
         <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $t->tagihan }}</td>
-            <td>{{ $t->biaya }}</td>
+            <td>Rp. {{ $t->biaya }}</td>
             <td>
                 <!-- link ubah -->
                 <a href="/tagihan/{{ $t->id_tagihan }}/edit" class="btn btn-primary btn-sm">Ubah</a>

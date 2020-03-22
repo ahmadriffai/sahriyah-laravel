@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Santri;
 use App\Kelas;
 use App\Kamar;
+use App\Tagihan;
+use App\Pembayaran;
 use Illuminate\Http\Request;
 
 class SantriController extends Controller
@@ -16,9 +18,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        $data['santri'] = Santri::all();
-        
-
+        $data['santri'] = Santri::all(); 
         return view('santri.index', $data);
     }
 
@@ -52,8 +52,51 @@ class SantriController extends Controller
             'id_kamar' => 'required',
             'telp_ortu' => 'required',
         ]);
-
+ 
+        // Insert Santri
         Santri::create($request->all());
+
+        // Insert Pembayaran
+        $s = Santri::orderBy('id_santri','desc')->take(1)->get();
+        foreach($s as $sa){
+            $id_santri = $sa->id_santri;
+        }
+
+        $tagihan = Tagihan::where('bulanan','y')->get();
+        
+       
+        $bulan = [
+            'januari',
+            'februari',
+            'maret',
+            'april',
+            'mei',
+            'juni',
+            'juli',
+            'agustus',
+            'september',
+            'oktober',
+            'november',
+            'desember'
+        ];
+
+        for($j = 0; $j<count($tagihan); $j++){
+
+            for($i = 0; $i < count($bulan); $i++){
+                $pembayaran = new Pembayaran;
+                $pembayaran->id_santri = $id_santri;
+                $pembayaran->bulan = $bulan[$i];
+                $pembayaran->jumlah = 0;
+                $pembayaran->tgl_pembayaran = 0;
+                $pembayaran->ket = 'Belum Lunas';
+                $pembayaran->biaya = 75000;
+        
+                $pembayaran->save();
+            }
+        }
+        
+        // Insert Pembayaran
+
         return redirect('/santri')->with('status','Data Santri Berhasil Ditambah');
     }
 
@@ -131,4 +174,5 @@ class SantriController extends Controller
         return redirect('/santri')->with('status','Data Santri Berhasil Dihapus');
 
     }
+
 }
