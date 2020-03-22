@@ -80,7 +80,6 @@ class SantriController extends Controller
             'desember'
         ];
 
-        for($j = 0; $j<count($tagihan); $j++){
 
             for($i = 0; $i < count($bulan); $i++){
                 $pembayaran = new Pembayaran;
@@ -93,7 +92,7 @@ class SantriController extends Controller
         
                 $pembayaran->save();
             }
-        }
+
         
         // Insert Pembayaran
 
