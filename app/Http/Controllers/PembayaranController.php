@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pembayaran;
+use App\Santri;
+use App\Tagihan;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -14,7 +16,7 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        //
+        return view('pembayaran.index');
     }
 
     /**
@@ -33,29 +35,46 @@ class PembayaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function cari(Request $request)
     {
-        //
+        $cari = $request->cari;
+
+        
+        $santri = Santri::where('nis',$cari)->get();
+        
+        foreach($santri as $s){
+            $data['id_santri'] = $s->id_santri;
+        }
+
+        
+        $data['tagihan'] = Tagihan::all();
+
+
+
+
+        return view('pembayaran.index', $data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pembayaran  $pembayaran
+     * @param  \App\Bayar  $bayar
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembayaran $pembayaran)
+    public function bayar(Santri $santri,Tagihan $tagihan)
     {
-        //
+        $data['pembayaran'] = Pembayaran::where('id_santri',$santri->id_santri)->where('id_tagihan',$tagihan->id_tagihan)->get();
+        $data['santri'] = $santri;
+        return view('pembayaran.bayar', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pembayaran  $pembayaran
+     * @param  \App\Bayar  $bayar
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pembayaran $pembayaran)
+    public function edit(Bayar $bayar)
     {
         //
     }
@@ -64,21 +83,35 @@ class PembayaranController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pembayaran  $pembayaran
+     * @param  \App\Bayar  $bayar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pembayaran $pembayaran)
+    public function byr(Pembayaran $bayar)
     {
-        //
+        // no pembayaran
+        $tgl = date('ymd');
+
+        $random = strval(rand('100','199'));
+
+        $no_pembayaran = strval($tgl).$random;
+
+        Pembayaran::where('id_pembayaran', $bayar->id_pembayaran)->update([
+            'no_pembayaran' => $no_pembayaran,
+            'tgl_pembayaran' => $tgl,
+            'ket' => 'lunas'
+        ]);
+
+        return redirect('/pembayaran/'.$bayar->id_santri.'/'. $bayar->id_tagihan .'/bayar')->with('status','Berhasil Melakukan Pembayaran');  
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pembayaran  $pembayaran
+     * @param  \App\Bayar  $bayar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembayaran $pembayaran)
+    public function destroy(Bayar $bayar)
     {
         //
     }

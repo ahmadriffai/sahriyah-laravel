@@ -30,6 +30,17 @@
                     </span>
                     <span class="text">Tambah Data Santri</span>
                     </a>
+                    <form method="get" action="/santri/cari" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    
+                    <div class="input-group">
+                    <input type="text" name='cari' class="form-control bg-light border-0 small" placeholder="Cari Santri.." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit" value="CARI">
+                        <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                    </div>
+                  </form>
                     
 
 
@@ -40,9 +51,8 @@
                         <th scope="col">#</th>
                         <th scope="col">NIS</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Gender</th>
                         <th scope="col">Telp Ortu</th>
-                        <th scope="col">alamat</th>
                         <th scope="col">Kelas</th>
                         <th scope="col">Kamar</th>
                         <th scope="col">Status</th>
@@ -58,7 +68,6 @@
                             <td>{{ $s->nama }}</td>
                             <td>{{ $s->jns_kelamin }}</td>
                             <td>{{ $s->telp_ortu }}</td>
-                            <td>{{ $s->alamat }}</td>
                             <td>{{ $s->id_kelas }}</td>
                             <td>{{ $s->id_kamar }}</td>
                             @if( $s->status == "aktif" )
@@ -85,6 +94,9 @@
                         @endforeach
                     </tbody>
                     </table>
+
+                    <!-- paginate -->
+                    {{ $santri->links() }}
                   
                 </div>
               </div>

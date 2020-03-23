@@ -10,4 +10,8 @@ class Tagihan extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_tagihan';
     protected $fillable = ['tagihan','biaya'];
+
+    public function pembayaran(){
+        return $this->hasMany('App\Pembayaran','id_tagihan');
+    }
 }

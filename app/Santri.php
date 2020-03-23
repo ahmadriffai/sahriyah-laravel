@@ -11,4 +11,10 @@ class Santri extends Model
     protected $primaryKey = 'id_santri';
     protected $fillable = ['nama','nis','telp_ortu','alamat','id_kelas','id_kamar','status','jns_kelamin'];
 
+    // relasi 
+    public function pembayaran(){
+        return $this->hasMany('App\Pembayaran', 'id_santri');
+    }
+   
+
 }

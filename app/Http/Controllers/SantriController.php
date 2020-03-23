@@ -18,8 +18,20 @@ class SantriController extends Controller
      */
     public function index()
     {
-        $data['santri'] = Santri::all(); 
+        $data['santri'] = Santri::paginate(2); 
+
+        $tagihan = Tagihan::where('bulanan','y')->get();
+
         return view('santri.index', $data);
+    }
+
+    public function cari(Request $request){
+
+        $cari = $request->cari;
+
+        $data['santri'] = Santri::where('nama','like','%'. $cari .'%')->orwhere('nis','like','%'. $cari .'%')->paginate(10); 
+        return view('santri.index', $data);
+
     }
 
     /**
@@ -50,7 +62,7 @@ class SantriController extends Controller
             'jns_kelamin' => 'required',
             'id_kelas' => 'required',
             'id_kamar' => 'required',
-            'telp_ortu' => 'required',
+            'telp_ortu' => 'required'
         ]);
  
         // Insert Santri
@@ -60,9 +72,12 @@ class SantriController extends Controller
         $s = Santri::orderBy('id_santri','desc')->take(1)->get();
         foreach($s as $sa){
             $id_santri = $sa->id_santri;
+            $jk = $sa->jns_kelamin;
+
         }
 
-        $tagihan = Tagihan::where('bulanan','y')->get();
+        
+        $tagihan = Tagihan::where('bulanan','y')->where('tosantri',$jk)->get();
         
        
         $bulan = [
@@ -80,19 +95,19 @@ class SantriController extends Controller
             'desember'
         ];
 
-
+        for($j = 0; $j < count($tagihan); $j++){
             for($i = 0; $i < count($bulan); $i++){
                 $pembayaran = new Pembayaran;
                 $pembayaran->id_santri = $id_santri;
                 $pembayaran->bulan = $bulan[$i];
-                $pembayaran->jumlah = 0;
+                $pembayaran->id_tagihan = $tagihan[$j]->id_tagihan;
                 $pembayaran->tgl_pembayaran = 0;
                 $pembayaran->ket = 'Belum Lunas';
-                $pembayaran->biaya = 75000;
+                $pembayaran->jumlah = $tagihan[$j]->biaya;;
         
                 $pembayaran->save();
             }
-
+        }
         
         // Insert Pembayaran
 
@@ -170,6 +185,8 @@ class SantriController extends Controller
     {
         Santri::destroy($santri->id_santri);
 
+        Bayar::where('id_santri',$santri->id_santri)->delete();
+        
         return redirect('/santri')->with('status','Data Santri Berhasil Dihapus');
 
     }

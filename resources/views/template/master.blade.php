@@ -89,7 +89,7 @@
 
       <!--  -->
       <li class="nav-item">
-        <a class="nav-link" href="/santri">
+        <a class="nav-link" href="/pembayaran">
           <i class="fas fa-fw fa-flag"></i>
           <span>Pembayaran Tagihan</span></a>
       </li>

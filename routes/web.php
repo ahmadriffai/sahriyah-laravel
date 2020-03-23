@@ -27,6 +27,7 @@ Route::get('/dashboard', function(){
 // Route::get('/santri/{santri}/edit', 'SantriController@edit');
 // Route::put('/santri/{santri}', 'SantriController@update');
 
+Route::get('santri/cari', 'SantriController@cari');
 Route::resource('santri', 'SantriController');
 
 // Kelas
@@ -50,3 +51,10 @@ Route::post('/tagihan', 'TagihanController@store');
 Route::delete('/tagihan/{tagihan}', 'TagihanController@destroy');
 Route::get('/tagihan/{tagihan}/edit', 'TagihanController@edit');
 Route::put('/tagihan/{tagihan}', 'TagihanController@update');
+
+
+// Pembayaran
+Route::get('/pembayaran', 'PembayaranController@index');
+Route::get('pembayaran/{santri}/{tagihan}/bayar', 'PembayaranController@bayar');
+Route::get('pembayaran/{bayar}/byr', 'PembayaranController@byr');
+Route::get('/pembayaran/cari', 'PembayaranController@cari');

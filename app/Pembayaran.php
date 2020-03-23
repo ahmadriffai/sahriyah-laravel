@@ -9,5 +9,15 @@ class Pembayaran extends Model
     protected $table = 'tb_pembayaran';
     public $timestamps = false;
     protected $primaryKey = 'id_pembayaran';
-    protected $fillable = ['id_santri','no_pembayaran', 'bulan', 'jumlah', 'id_tagihan','tgl_pembayaran','ket','biaya'];
+
+    protected $fillable = ['id_tagihan','santri_id', 'bulan','tagihan_id','tgl_pembayaran','ket','jumlah'];
+
+    
+    public function tagihan(){
+        return $this->belongsTo('App\Tagihan');
+    }
+    
+    public function santri(){
+        return $this->belongsTo('App\Santri');
+    }
 }
