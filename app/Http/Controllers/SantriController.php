@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\Santri;
 use App\Kelas;
 use App\Kamar;
@@ -18,7 +19,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        $data['santri'] = Santri::paginate(2); 
+        $data['santri'] = Santri::paginate(10); 
 
         $tagihan = Tagihan::where('bulanan','y')->get();
 
@@ -57,7 +58,7 @@ class SantriController extends Controller
 
         $request->validate([
             'nama' => 'required',
-            'nis' => 'required|size:5',
+            'nis' => 'required|size:5|unique:tb_santri,nis',
             'alamat' => 'required',
             'jns_kelamin' => 'required',
             'id_kelas' => 'required',
@@ -101,7 +102,7 @@ class SantriController extends Controller
                 $pembayaran->id_santri = $id_santri;
                 $pembayaran->bulan = $bulan[$i];
                 $pembayaran->id_tagihan = $tagihan[$j]->id_tagihan;
-                $pembayaran->tgl_pembayaran = 0;
+               
                 $pembayaran->ket = 'Belum Lunas';
                 $pembayaran->jumlah = $tagihan[$j]->biaya;;
         
@@ -110,8 +111,9 @@ class SantriController extends Controller
         }
         
         // Insert Pembayaran
+        alert()->success('Berhasil','Data Berhasil Ditambahkan');
 
-        return redirect('/santri')->with('status','Data Santri Berhasil Ditambah');
+        return redirect('/santri');
     }
 
     /**
@@ -172,7 +174,8 @@ class SantriController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect('/santri')->with('status','Data Santri Berhasil Diubah');    
+        alert()->toast('Data Berhasil Diubah','success');
+        return redirect('/santri');    
     }
 
     /**
@@ -185,9 +188,11 @@ class SantriController extends Controller
     {
         Santri::destroy($santri->id_santri);
 
-        Bayar::where('id_santri',$santri->id_santri)->delete();
+        Pembayaran::where('id_santri',$santri->id_santri)->delete();
         
-        return redirect('/santri')->with('status','Data Santri Berhasil Dihapus');
+        alert()->toast('Data Berhasil Dihapus','success');
+
+        return redirect('/santri');
 
     }
 

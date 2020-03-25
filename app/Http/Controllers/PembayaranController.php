@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pembayaran;
 use App\Santri;
 use App\Tagihan;
+use Alert;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -63,7 +64,7 @@ class PembayaranController extends Controller
      */
     public function bayar(Santri $santri,Tagihan $tagihan)
     {
-        $data['pembayaran'] = Pembayaran::where('id_santri',$santri->id_santri)->where('id_tagihan',$tagihan->id_tagihan)->get();
+        $data['pembayaran'] = Pembayaran::where('id_tagihan',$tagihan->id_tagihan)->where('id_santri',$santri->id_santri)->get();
         $data['santri'] = $santri;
         return view('pembayaran.bayar', $data);
     }
@@ -89,7 +90,7 @@ class PembayaranController extends Controller
     public function byr(Pembayaran $bayar)
     {
         // no pembayaran
-        $tgl = date('ymd');
+        $tgl = date("Y-m-d");
 
         $random = strval(rand('100','199'));
 
@@ -101,7 +102,8 @@ class PembayaranController extends Controller
             'ket' => 'lunas'
         ]);
 
-        return redirect('/pembayaran/'.$bayar->id_santri.'/'. $bayar->id_tagihan .'/bayar')->with('status','Berhasil Melakukan Pembayaran');  
+        alert()->success('Berhasil','Berhasil Melakukan Pembayaran');
+        return redirect('/pembayaran/'.$bayar->id_santri.'/'. $bayar->id_tagihan .'/bayar');  
 
     }
 

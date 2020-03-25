@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Kelas;
 use Illuminate\Http\Request;
+Use Alert;
+
 
 class KelasController extends Controller
 {
@@ -33,8 +35,10 @@ class KelasController extends Controller
         ]);
 
         kelas::create($request->all());
-
-        return redirect('/kelas')->with('status','Data kelas Berhasil Ditambahkan');
+        
+        
+        Alert::toast('Data Berhasil Ditambahkan','success');
+        return redirect('/kelas');
 
     }
 
@@ -77,7 +81,7 @@ class KelasController extends Controller
     public function destroy(Kelas $kelas)
     {
         Kelas::destroy($kelas->id_kelas);
-
-        return redirect('/kelas')->with('status','Data kelas Berhasil Dihapus');
+        Alert::toast('Data Berhasil Dihapus','success');
+        return redirect('/kelas');
     }
 }

@@ -84,7 +84,8 @@ class TagihanController extends Controller
             
             ]);
             
-        return redirect('/tagihan')->with('status','Data Berhasil Diubah');
+        alert()->toast('Data Berhasil Diubah','success');
+        return redirect('/tagihan');
 
     }
     

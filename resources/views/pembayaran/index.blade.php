@@ -67,12 +67,15 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $s->tagihan }}</td>
-                            <td>{{ $s->biaya }}/bulan</td>
+                            <td>Rp. {{ number_format($s->biaya,2,',','.') }}/bulan</td>
                             <td></td>
                             <td>
                             <!-- link ubah -->
-                            <a href="/pembayaran/{{ $id_santri }}/{{ $s->id_tagihan }}/bayar" class="btn btn-primary btn-sm">Bayar</a>
-                           
+                            @if(isset($santri))
+                              <a href="/pembayaran/{{ $id_santri }}/{{ $s->id_tagihan }}/bayar" class="btn btn-primary btn-sm">Bayar</a>
+                            @else
+                              <a href="/pembayaran/{{ $id_santri }}/{{ $s->id_tagihan }}/bayar" class="btn btn-primary btn-sm">Bayar</a>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
