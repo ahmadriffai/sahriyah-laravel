@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\Tagihan;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,8 @@ class TagihanController extends Controller
 
         Tagihan::create($request->all());
 
-        return redirect('/tagihan')->with('status','Data Berhasil Ditambahkan');
+        alert()->success('Berhasil','Data Berhasil Ditambahkan');
+        return redirect('/tagihan');
     }
     
     /**

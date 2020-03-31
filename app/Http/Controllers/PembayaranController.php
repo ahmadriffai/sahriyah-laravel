@@ -102,7 +102,7 @@ class PembayaranController extends Controller
             'ket' => 'lunas'
         ]);
 
-        alert()->success('Berhasil','Berhasil Melakukan Pembayaran');
+        alert()->toast('Berhasil Melakukan Pembayaran','success');
         return redirect('/pembayaran/'.$bayar->id_santri.'/'. $bayar->id_tagihan .'/bayar');  
 
     }

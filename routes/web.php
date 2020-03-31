@@ -14,21 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Dasboard
-Route::get('/dashboard', function(){
-    return view('dashboard');
-});
+Route::get('/dashboard','DashboardController@index');
+
+// Pendafataran Santri
 
 
 // Santri
-// Route::get('/santri', 'SantriController@index');
-// Route::get('/santri/create', 'SantriController@create');
-// Route::post('/santri', 'SantriController@store');
-// Route::delete('/santri/{santri}', 'SantriController@destroy');
-// Route::get('/santri/{santri}/edit', 'SantriController@edit');
-// Route::put('/santri/{santri}', 'SantriController@update');
+Route::get('/santri', 'SantriController@index');
 
+// Daftar Santri
+Route::get('/almanshur/daftar', 'SantriController@daftar');
+Route::post('/santri', 'SantriController@store');
+Route::get('/santri/{santri}/acc', 'SantriController@acc');
+
+
+// Tagihan Santri
+Route::get('santri/tagihan', 'SantriController@tagihan');
+// 
+Route::get('/santri/santri_baru', 'SantriController@baru');
+Route::delete('/santri/{santri}', 'SantriController@destroy');
+Route::get('/santri/{santri}/edit', 'SantriController@edit');
+Route::put('/santri/{santri}', 'SantriController@update');
 Route::get('santri/cari', 'SantriController@cari');
-Route::resource('santri', 'SantriController');
+
 
 // Kelas
 Route::get('/kelas', 'KelasController@index');

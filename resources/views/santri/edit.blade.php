@@ -32,6 +32,7 @@
                         @method('put')
                         @csrf
 
+                        
                         <div class="form-group">
                             <label for="nama">Nama Santri</label>
                             <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" value="{{ $santri->nama }}">
@@ -40,6 +41,7 @@
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                         </div>
+                        
                         
                         <div class="form-group">
                             <label for="nis">Nomor Induk Santri</label>
@@ -51,7 +53,7 @@
                     
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <input type="text" name="alamat" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" value="{{ $santri->alamat }}">
+                            <input type="text" name="alamat" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" value="{{ $santri->alamat }}"">
                             @error('alamat')
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
@@ -68,7 +70,32 @@
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                         </div>
-                    
+                        
+                        <div class="form-group">
+                            <label for="telp_wali">No Telephone Wali</label>
+                            <input type="text" class="form-control  @error('telp_wali') is-invalid @enderror" id="telp_wali" name="telp_wali" value="{{ $santri->telp_wali }}">
+                            @error('telp_wali')
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="no_telp">No Telephone Santri</label>
+                            <input type="text" class="form-control  @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp" value="{{ $santri->no_telp }}">
+                            @error('no_telp')
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label for="tgl_lahir">Tanggal lahir</label>
+                            <input type="date" class="form-control  @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir" name="tgl_lahir" value="{{ $santri->tgl_lahir }}">
+                            @error('tgl_lahir')
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
                             <label for="id_kelas">Kelas</label>
                             <select class="form-control  @error('id_kelas') is-invalid @enderror" id="id_kelas" name="id_kelas">
@@ -95,16 +122,19 @@
                             @enderror
                         </div>
                     
-                        <div class="form-group">
-                            <label for="telp_ortu">No Telp Wali</label>
-                            <input type="text" class="form-control  @error('telp_ortu') is-invalid @enderror" id="telp_ortu" name="telp_ortu" value="{{ $santri->telp_ortu }}">
-                            @error('telp_ortu')
-                                <div class="invalid-feedback"> {{ $message }} </div>
-                            @enderror
-                        </div>
-
-                        <input type="hidden" name='status' value='aktif'>
                         
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control  @error('status') is-invalid @enderror" id="status" name="status">
+                                
+                                <option value="pelajar">Pelajar</option>
+                                <option Value="pekerja">Pekerja</option>
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                        </div>
+                        <!-- ========== -->
                         
                         <button type="submit" class="btn btn-success">Ubah Data</button>
                         </form>  

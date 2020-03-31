@@ -19,9 +19,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        $data['santri'] = Santri::paginate(10); 
-
-        $tagihan = Tagihan::where('bulanan','y')->get();
+        $data['santri'] = Santri::where('nis','!=',null)->paginate(10); 
 
         return view('santri.index', $data);
     }
@@ -40,11 +38,18 @@ class SantriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function daftar()
     {
         $data['kelas'] = Kelas::all();
         $data['kamar'] = Kamar::all();
-        return view('santri.create', $data);
+        return view('santri.daftar', $data);
+    }
+
+    public function baru()
+    {
+        $data['santri'] = Santri::where('nis',null)->paginate(10); 
+
+        return view('santri.baru',$data);
     }
 
     /**
@@ -58,16 +63,24 @@ class SantriController extends Controller
 
         $request->validate([
             'nama' => 'required',
-            'nis' => 'required|size:5|unique:tb_santri,nis',
             'alamat' => 'required',
             'jns_kelamin' => 'required',
-            'id_kelas' => 'required',
-            'id_kamar' => 'required',
-            'telp_ortu' => 'required'
+            'telp_wali' => 'required',
+            'tgl_lahir' => 'required|date',
+            'no_telp' => 'required'
         ]);
  
+       
         // Insert Santri
-        Santri::create($request->all());
+        $santri = new Santri;
+        $santri->nama = $request->nama;
+        $santri->alamat = $request->nama;
+        $santri->jns_kelamin = $request->jns_kelamin;
+        $santri->telp_wali = $request->telp_wali;
+        $santri->tgl_lahir = $request->tgl_lahir;
+        $santri->no_telp = $request->no_telp;
+        
+        $santri->save();
 
         // Insert Pembayaran
         $s = Santri::orderBy('id_santri','desc')->take(1)->get();
@@ -79,7 +92,7 @@ class SantriController extends Controller
 
         
         $tagihan = Tagihan::where('bulanan','y')->where('tosantri',$jk)->get();
-        
+        $tagihant = Tagihan::where('bulanan','t')->where('tosantri',$jk)->get();       
        
         $bulan = [
             'januari',
@@ -109,11 +122,24 @@ class SantriController extends Controller
                 $pembayaran->save();
             }
         }
+
+        for($k = 0; $k < count($tagihant); $k++){
+           
+                $pembayaran = new Pembayaran;
+                $pembayaran->id_santri = $id_santri;
+                $pembayaran->id_tagihan = $tagihant[$k]->id_tagihan;
+               
+                $pembayaran->ket = 'Belum Lunas';
+                $pembayaran->jumlah = $tagihant[$k]->biaya;;
+        
+                $pembayaran->save();
+            
+        }
         
         // Insert Pembayaran
-        alert()->success('Berhasil','Data Berhasil Ditambahkan');
+        alert()->success('Berhasil','Berhasil Melakukan Pendaftaran');
 
-        return redirect('/santri');
+        return redirect('/almanshur/daftar');
     }
 
     /**
@@ -148,19 +174,29 @@ class SantriController extends Controller
      * @param  \App\Santri  $santri
      * @return \Illuminate\Http\Response
      */
+
+    public function acc(Santri $santri)
+    {
+        $kelas = Kelas::all();
+        $kamar = Kamar::all();
+        
+        return view('santri.acc', ['kelas' => $kelas, 'kamar' => $kamar, 'santri' => $santri]);
+    }
+
     public function update(Request $request, Santri $santri)
     {
 
         
         $request->validate([
             'nama' => 'required',
-            'nis' => 'required|size:5',
+            'nis' => 'required|size:5|unique:tb_santri,nis',
             'alamat' => 'required',
             'jns_kelamin' => 'required',
             'id_kelas' => 'required',
             'id_kamar' => 'required',
-            'telp_ortu' => 'required',
-            'status' => 'required'
+            'telp_wali' => 'required',
+            'status' => 'required',
+            'no_telp' => 'required'
         ]);
 
         Santri::where('id_santri', $santri->id_santri)->update([
@@ -170,12 +206,14 @@ class SantriController extends Controller
             'jns_kelamin' => $request->jns_kelamin,
             'id_kelas' => $request->id_kelas,
             'id_kamar' => $request->id_kamar,
-            'telp_ortu' => $request->telp_ortu,
+            'telp_wali' => $request->telp_wali,
+            'no_telp' => $request->no_telp,
             'status' => $request->status,
         ]);
 
+
         alert()->toast('Data Berhasil Diubah','success');
-        return redirect('/santri');    
+        return redirect()->back();    
     }
 
     /**
@@ -192,7 +230,7 @@ class SantriController extends Controller
         
         alert()->toast('Data Berhasil Dihapus','success');
 
-        return redirect('/santri');
+        return redirect()->back();
 
     }
 

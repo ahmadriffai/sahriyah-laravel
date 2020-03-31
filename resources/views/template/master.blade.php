@@ -27,13 +27,14 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        
-        <div class="sidebar-brand-text mx-3">PP AL-MASNSHUR</div>
+              
+        <div class="sidebar-brand-text mt-4"><img src="/img/almanshur-light.png" alt="" width="65px"><br>AL MANSHUR</div>
       </a>
+      <br>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
@@ -43,6 +44,15 @@
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
+      </li>
+      
+
+      <li class="nav-item">
+        <a class="nav-link" href="/santri/santri_baru">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Santri Baru</span>
+          <p class="badge badge-danger">new</p>
+        </a>
       </li>
 
       <!-- Divider -->

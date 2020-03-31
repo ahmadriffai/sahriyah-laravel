@@ -7,9 +7,9 @@
 @section('titlepage', 'Halaman Santri')
 
 @section('content')
-           <!-- Circle Buttons -->
+           <!-- Card -->
            <div class="col-md-12">
-           
+            
            <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Data Santri</h6>
@@ -19,7 +19,7 @@
 
                 <div class="card-body">
                  
-                    
+                  
                     <form method="get" action="/santri/cari" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     
                     <div class="input-group">
@@ -67,7 +67,7 @@
                             @endif
                             <td>
                             <!-- link ubah -->
-                            <a href="/santri/{{ $s->id_santri }}/edit" class="btn btn-primary btn-sm">Ubah</a>
+                            <a href="/santri/{{ $s->id_santri }}/acc" class="btn btn-primary btn-sm">ACC</a>
                             <!-- link delete -->
                             <form action="/santri/{{ $s->id_santri }}" method="post" class="d-inline">
 
